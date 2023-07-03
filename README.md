@@ -1,2 +1,1 @@
-# DM-Mala
-Gemastik Data Mining
+1. always run in 'Source' folder
