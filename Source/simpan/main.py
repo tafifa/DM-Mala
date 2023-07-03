@@ -1,6 +1,6 @@
 # import python file from directory
 import createDataBase as cDB
-import getData as t
+import dataProcessor as t
 import distanceComparison as d
 
 ### analyze distance comparison for image from path

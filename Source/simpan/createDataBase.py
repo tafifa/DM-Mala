@@ -1,4 +1,4 @@
-import getData as t
+import dataProcessor as t
 import pandas as pd
 import os
 
