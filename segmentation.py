@@ -10,8 +10,8 @@ def show(img):
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
-def read(dir):
-  img = cv2.imread(dir)
+def read(img):
+  # img = cv2.imread(img)
   im_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
   imgplot = plt.imshow(im_rgb)
   plt.show()
@@ -35,7 +35,7 @@ def segmentation(dir, l, u):
 
   # Display the original image and the segmented image
   imgplot = plt.imshow(segmented_image)
-  plt.show()
+  # plt.show()
   cv2.imwrite('segm.png', segmented_image)
 
 def rectangle(dir):
@@ -47,15 +47,22 @@ def rectangle(dir):
   print("Number of contours in image:", len(contours))
   xmin, xmax, ymin, ymax = [], [], [], []
 
+  if len(contours) < 1:
+    print('Tidak ditemukan kontur')
+    pass
+  
+  count = 0
   for i, cnt in enumerate(contours):
       M = cv2.moments(cnt)
       area = cv2.contourArea(cnt)
       perimeter = cv2.arcLength(cnt, True)
       perimeter = round(perimeter, 4)
-      if M['m00'] != 0.0 and area > 20:
+      if M['m00'] != 0.0 and area > 80:
+          roundness = (4 * np.pi * area) / (perimeter ** 2)
           x1 = int(M['m10'] / M['m00'])
           y1 = int(M['m01'] / M['m00'])
           print(f'Area of contour {i + 1}:', area)
+          print("Roundness:", roundness)
           # print(x1, ' ', y1)
 
           # print(f'Perimeter of contour {i + 1}:', perimeter)
@@ -76,25 +83,35 @@ def rectangle(dir):
           # cv2.putText(img2, f'{i + 1}', (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 255, 0), 1)
           # cv2.putText(img1, f'Area: {area}', (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
           # cv2.putText(img1, f'Perimeter: {perimeter}', (x1, y1 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-  cv2.rectangle(img2, (min(xmin), min(ymin)), (max(xmax), max(ymax)), (0, 255, 0), 1)
+          count += 1
+          print('\n')
+  # cv2.rectangle(img2, (min(xmin), min(ymin)), (max(xmax), max(ymax)), (0, 255, 0), 1)
+  print(f'Jumlah kontur adalah {count}')
   read(img2)
 
 
 if __name__ == '__main__':
-  dir = 'image2.png'
+  dir = 'image6.png'
 
   # l = [125, 6, 88]
   # u = [170, 101, 156]
-  l = [133, 19, 104]
+  # l = [133, 19, 104]
+  l = [101, 6, 88]
   u = [211, 114, 165]
 
   # read(dir)
-  segmentation(dir, l, u)
+  # segmentation(dir, l, u)
   # rectangle(dir)
 
-  # dirpath = 'Data\Dataset\Sizon\*'
-  # path = glob.glob(dirpath)
-  # for item in path:
-  #   segmentation(item, l, u)
-  #   rectangle3(item)
+  dirpath = 'Data\Dataset\Sizon\*'
+  path = glob.glob(dirpath)
+  for item in path:
+    segmentation(item, l, u)
+    rectangle(item)
     
+'''
+  untuk nentukan stadium pakai jumlah sel malaria atau luas sel malaria
+
+  judul : segmetasi plasmodium 
+
+'''
