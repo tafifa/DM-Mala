@@ -10,7 +10,7 @@ def read(dir, img, i):
 		im_rgb = cv2.cvtColor(dir, cv2.COLOR_BGR2HSV)
 	else:
 		im_rgb = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
-		cv2.imwrite(f'lab{i}.png', im_rgb)
+		# cv2.imwrite(f'lab{i}.png', im_rgb)
 	imgplot = plt.imshow(im_rgb)
 	# plt.show()
 
@@ -97,7 +97,7 @@ def segmentation(img):
 
 if __name__ == '__main__':
 
-	dirpath = '../Data/Fase/*.png'
+	dirpath = '../Data/Stadium/test/*'
 	path = glob.glob(dirpath)
 
 	i = 0

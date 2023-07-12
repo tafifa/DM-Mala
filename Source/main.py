@@ -4,7 +4,7 @@ from distanceComparison import getDataFrame
 
 # Parasitized Classification
 createCSV_Infected()
-dir = '../Data/Fase/test/*'
+dir = '../Data/Stadium/Test/*'
 # getDataFrame(dir)
 
 # print(getData(dir))

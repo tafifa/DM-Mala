@@ -107,6 +107,6 @@ def getDataFrame(path):
 	return glcm_df
 
 if __name__ == '__main__':
-	dir = '../Data/Fase/test/*'
+	dir = '../Data/Stadium/test/*'
 
 	print(getDataFrame(dir))

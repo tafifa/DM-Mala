@@ -20,7 +20,7 @@ def stadium_classificationKNN(dir, metricOpt):
 	# data = pd.read_csv('csv/stadiumClassification.csv')
 	# x = np.array(data[[ 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation' ]])
 	
-	data = pd.read_csv('csv/stadiumClassification2.csv')
+	data = pd.read_csv('csv/stadiumClassification.csv')
 	# texture_feature = [ 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis' ]
 	txt_feature = [ 'roundness', 'homogeneity', 'correlation', 'skewness', 'kurtosis']
 
@@ -59,7 +59,7 @@ def stadium_classificationKNN(dir, metricOpt):
 def stadium_classificationSVM(dir, metricOpt):
 	path = glob.glob(dir)
 
-	data = pd.read_csv('csv/stadiumClassification2.csv')
+	data = pd.read_csv('csv/stadiumClassification.csv')
 	# texture_feature = ['contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis']
 	txt_feature = [ 'roundness', 'homogeneity', 'correlation', 'skewness', 'kurtosis']
 

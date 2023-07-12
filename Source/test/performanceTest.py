@@ -43,7 +43,7 @@ def perf_infClass():
 
 def perf_stdClass():
   path = '../csv/result.csv'
-  path2 = '../csv/filename.csv'
+  path2 = '../csv/labelling.csv'
   df = pd.read_csv(path)
   df2 = pd.read_csv(path2)
 
@@ -86,7 +86,10 @@ def perf_stdClass():
   # print("Specificity:", specificity)
 
 if __name__ == '__main__':
-  # perf_infClass()
+  print("Klasifikasi Terinfeksi")
+  perf_infClass()
+
+  print("\nKlasifikasi Stadium")
   data, sama, tsama = perf_stdClass()
 
   glcm_df = pd.DataFrame(data)
@@ -95,5 +98,3 @@ if __name__ == '__main__':
   print('jumlah tsama', tsama)
 
   print('accuracy = ', (sama)/(sama+tsama))
-
-  # glcm_df.to_csv('csv/filename2.csv')
