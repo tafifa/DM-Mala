@@ -1,27 +1,25 @@
-from databaseCreator import createDatabase, createDatabase2
-from dataProcessor import getData, getglcm, getglcm2, getDataFrame
-from distanceComparator import distanceComparison, distanceComparison2
+from toCSV import createCSV_Infected, createCSV_Stadium, createCSV_result
+from secondClassification import getDataFrame, getData
+from distanceComparison import getDataFrame
 
-# createDatabase()
-dir = '../Data/test/*'
+# Parasitized Classification
+createCSV_Infected()
+dir = '../Data/Fase/test/*'
+# getDataFrame(dir)
+
 # print(getData(dir))
-# createDatabase2()
-# print(getData(dir))
-distanceComparison(dir, 'canberra')
-# distanceComparison2(dir)
+createCSV_Stadium()
+
+# Stadium Classification
+# print(stadium_classification(dir, 'canberra'))
+# print(getDataFrame2(dir, 'canberra'))
+createCSV_result(dir, 'canberra')
 
 '''
-6/7/2023 01.32
 
-hasil Tropozoit image
-hasil Tropozoit image2
-hasil Tropozoit image3
-hasil Tropozoit image4
-hasil Tropozoit image5
-hasil Tropozoit image6
-
-walaupun sudah pakai segmentasi tapi masih menunjukkan hasil klasifikasi yang salah
-perlu ditelaah dibagian codingan distance comparison ataupun dari dataset yang dipilih
-ada kemungkinan kecil masih ada miss di bagian segmentation
+1. 600 i 600 t, kita count object, tentukan TP i TP t
+2. dari TP dan TN, ambil nilai glcm dan nilai bentuk lalu masukkan basis pengetahuan
+3. nanti data folder uji dibandingkan dengan basis pengetahuan menggunakan canberra atau svm?
+4. tentukan TP FN dari data folder uji
 
 '''
