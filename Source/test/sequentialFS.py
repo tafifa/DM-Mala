@@ -9,7 +9,8 @@ def seqfs():
 	
 	data = pd.read_csv('../csv/stadiumClassification2.csv')
 	texture_feature = [ 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis' ]
-	txt_feature = ['homogeneity', 'correlation', 'skewness', 'kurtosis']
+	# texture_feature = [ 'filename', 'roundness', 'homogeneity', 'correlation', 'skewness', 'kurtosis']
+	# txt_feature = ['homogeneity', 'correlation', 'skewness', 'kurtosis']
 	
 	x = np.array(data[texture_feature])
 	scaler = StandardScaler()

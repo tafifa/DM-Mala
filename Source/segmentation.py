@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-def read(dir, img, i):
+def read(dir, img):
 	if dir != '':
 		img = cv2.imread(dir)
 		im_rgb = cv2.cvtColor(dir, cv2.COLOR_BGR2HSV)
@@ -12,7 +12,7 @@ def read(dir, img, i):
 		im_rgb = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
 		# cv2.imwrite(f'lab{i}.png', im_rgb)
 	imgplot = plt.imshow(im_rgb)
-	# plt.show()
+	plt.show()
 
 def show(img):
 	imgplot = plt.imshow(img)
@@ -40,6 +40,7 @@ def masking(img, l, u):
 
 def rectangle(mask, imged):
 
+	real = imged
 	img = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 	_, thresh = cv2.threshold(img, 10, 255, 0)
 	contours, _ = cv2.findContours(thresh, 1, 2)
@@ -61,7 +62,7 @@ def rectangle(mask, imged):
 			roundness = (4 * np.pi * area) / (perimeter ** 2)
 			roundnessVal += roundness
 				
-			img1 = cv2.drawContours(imged, [cnt], -1, (0, 255, 255), 1)
+			# img1 = cv2.drawContours(imged, [cnt], -1, (0, 255, 255), 1)
 			x, y, w, h = cv2.boundingRect(cnt)
 
 			xmin.append(x)
@@ -70,8 +71,8 @@ def rectangle(mask, imged):
 			ymax.append(y+h)
 
 	if count > 0:
-		# crop = mask[min(ymin):max(ymax), min(xmin):max(xmax)]
-		crop = mask
+		crop = real[min(ymin):max(ymax), min(xmin):max(xmax)]
+		# crop = mask
 
 		# print('Jumlah kontur', count)
 
@@ -103,13 +104,18 @@ if __name__ == '__main__':
 	i = 0
 	for item in path:
 		i += 1
-		# if i > 15:
-		#   break
+		# if i > 3:
+		# 	break
 
 		img  = cv2.imread(item, cv2.IMREAD_COLOR)
-		read('',img, i)
+		# read('',img, i)
 
-		# r, c, _, _ = segmentation(img)
+		r, c, _, _ = segmentation(img)
+		cv2.imwrite(f"../Data/coba/imgcrop_{i}.jpg", r)
+		
+		im_rgb = cv2.cvtColor(r, cv2.COLOR_RGB2LAB)
+		read('', im_rgb)
+		cv2.imwrite(f"../Data/coba/imglab_{i}.jpg", im_rgb)
 		# print(c)
 		
 
