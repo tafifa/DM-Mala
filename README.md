@@ -3,3 +3,4 @@
 3. install python package with this command:
     pip install -r ../requirements.txt
 4. download dataset here: https://drive.google.com/file/d/1DZo_zLc1tOZpLowktwMd_iYBP9vB-K-i/view
+5. Place 'Data' folder location same as 'Source' folder
