@@ -1,18 +1,13 @@
 from toCSV import createCSV_Infected, createCSV_Stadium, createCSV_result
-from secondClassification import getDataFrame, getData
-from distanceComparison import getDataFrame
 
 # Parasitized Classification
 createCSV_Infected()
 dir = '../Data/Stadium/Test/*'
-# getDataFrame(dir)
 
 # print(getData(dir))
 createCSV_Stadium()
 
 # Stadium Classification
-# print(stadium_classification(dir, 'canberra'))
-# print(getDataFrame2(dir, 'canberra'))
 createCSV_result(dir, 'canberra')
 
 '''

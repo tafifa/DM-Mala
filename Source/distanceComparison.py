@@ -17,10 +17,8 @@ from secondClassification import getglcm, gethistogram
 def stadium_classificationKNN(dir, metricOpt):
 	path = glob.glob(dir)
 
-	# data = pd.read_csv('csv/stadiumClassification.csv')
-	# x = np.array(data[[ 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation' ]])
-	
 	data = pd.read_csv('csv/stadiumClassification.csv')
+
 	# texture_feature = [ 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis' ]
 	txt_feature = [ 'roundness', 'homogeneity', 'correlation', 'skewness', 'kurtosis']
 
@@ -44,14 +42,12 @@ def stadium_classificationKNN(dir, metricOpt):
 		temp = np.concatenate([[roundness], glcm, hist])
 
 		inputTest = np.array(temp).reshape(1,-1)
-		# print(inputTest)
 		prediction = knn.predict(inputTest).reshape(1, -1)
 
 		list = temp.tolist()
 		list.insert(0, filename)
 		list.append(prediction[0][0])
 
-		# print(list)
 		result.append(list)
 
 	return result
@@ -60,6 +56,7 @@ def stadium_classificationSVM(dir, metricOpt):
 	path = glob.glob(dir)
 
 	data = pd.read_csv('csv/stadiumClassification.csv')
+
 	# texture_feature = ['contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis']
 	txt_feature = [ 'roundness', 'homogeneity', 'correlation', 'skewness', 'kurtosis']
 
@@ -95,6 +92,7 @@ def stadium_classificationSVM(dir, metricOpt):
 
 
 def getDataFrame(path, metricOpt):
+
 	# glcm_feature = [ 'filename', 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'prediction' ]
 	# histogram_feature = ['filename', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis', 'prediction']
 	# texture_feature = [ 'filename', 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis', 'prediction' ]
@@ -103,6 +101,5 @@ def getDataFrame(path, metricOpt):
 	glcm_all_agls = stadium_classificationKNN(path, metricOpt)
 
 	glcm_df = pd.DataFrame(glcm_all_agls, columns=txt_feature)
-	# print(glcm_df)
 
 	return glcm_df

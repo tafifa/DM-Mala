@@ -13,18 +13,14 @@ from segmentation import segmentation
 
 def gethistogram(img):
 
-	# Calculate entropy
 	histogram = cv2.calcHist([img], [0], None, [256], [0, 256])
 	probabilities = histogram / np.sum(histogram)
 	entropyVal = entropy(probabilities)[0]
 
-	# Calculate mean
 	meanVal = np.mean(img)
 
-	# Calulcate variance
 	varianceVal = np.mean(img)
 
-	# Flatten the img array for skewness and kurtosis calculation
 	flattened_img = img.flatten()
 
 	skewnessVal = skew(flattened_img)
@@ -34,18 +30,15 @@ def gethistogram(img):
 	if np.all(flattened_img == 0):
 		skewnessVal , kurtosisVal = 0, 0
 
-	# Calculate standar deviation
 	std_devVal = np.std(img)
 
 	# feature = [entropyVal, meanVal, varianceVal, std_devVal, skewnessVal, kurtosisVal]
 	feature = [skewnessVal, kurtosisVal]
 	
-	# print(feature)
 	return feature
 
 def getglcm(img):
 	# properties = [ 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation' ]
-	# properties = [ 'contrast', 'correlation', 'energy', 'homogeneity' ]
 	properties = [ 'homogeneity', 'correlation' ]
 
 	glcm = graycomatrix(img,
@@ -60,7 +53,6 @@ def getglcm(img):
 	for item in glcm_props:
 		feature.append(item)
 	
-	# print(feature)
 	return feature
 
 def getData(dir):
@@ -82,27 +74,23 @@ def getData(dir):
 		list = temp.tolist()
 		list.insert(0, filename)
 
-		# print(list)
 		
 		data.append(list)
 
-	# print(data)
 	return data
 
 def getDataFrame(path):	
 
+	# texture_feature = [ 'filename', 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis' ]
+
 	# glcm_feature = [ 'filename', 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation' ]
 	# histogram_feature = ['filename', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis']
-	# texture_feature = [ 'filename', 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis' ]
-	# texture_feature = [ 'filename', 'contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation', 'entropy', 'mean', 'variance', 'std_dev', 'skewness', 'kurtosis' ]
+
 	txt_feature = [ 'filename', 'roundness', 'homogeneity', 'correlation', 'skewness', 'kurtosis']
 
 	glcm_all_agls = getData(path)
-
 	glcm_df = pd.DataFrame(glcm_all_agls, columns=txt_feature)
-
 	glcm_df = glcm_df.assign(label=os.path.basename(os.path.dirname(path)))
-	# print(glcm_df)
 
 	return glcm_df
 
