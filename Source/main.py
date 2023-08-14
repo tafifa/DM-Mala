@@ -1,14 +1,17 @@
 from toCSV import createCSV_Infected, createCSV_Stadium, createCSV_result
 
+dir = '../Data/Stadium/Test/*'
+
 # Parasitized Classification
 createCSV_Infected()
-dir = '../Data/Stadium/Test/*'
 
 # print(getData(dir))
 createCSV_Stadium()
 
 # Stadium Classification
 createCSV_result(dir, 'canberra')
+
+### UNTUK HASILNYA CEK DI FOLDER CSV
 
 '''
 
