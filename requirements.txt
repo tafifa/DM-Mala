@@ -5,7 +5,4 @@ scikit-learn
 mlxtend
 pandas
 scipy
-scikit-image
-scikit-learn
-sklearn
 matplotlib
