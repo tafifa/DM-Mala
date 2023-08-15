@@ -43,9 +43,6 @@ def rectangle(mask, imged):
 			roundness = (4 * np.pi * area) / (perimeter ** 2)
 			roundnessVal += roundness
 			
-			### UNCOMMENT INI UNTUK MENDAPATKAN BATAS LUASAN PARASIT
-			# img1 = cv2.drawContours(imged, [cnt], -1, (0, 255, 255), 1)
-
 			x, y, w, h = cv2.boundingRect(cnt)
 
 			xmin.append(x)
@@ -55,10 +52,13 @@ def rectangle(mask, imged):
 
 	if count > 0:
 		### UNTUK MENDAPATKAN GAMBAR PARASIT DENGAN UKURAN YANG DI CROP
-		crop = mask[min(ymin):max(ymax), min(xmin):max(xmax)] 
+		# crop = mask[min(ymin):max(ymax), min(xmin):max(xmax)] 
 
 		### UNTUK MENDAPATKAN GAMBAR PARASIT DENGAN UKURAN ASLI
 		# crop = mask
+
+		### UNTUK MENDAPATKAN AREA KONTUR
+		crop = cv2.drawContours(imged, [cnt], -1, (0, 255, 255), 1)
 
 		return crop, count, area, roundnessVal
 	
@@ -84,6 +84,8 @@ if __name__ == '__main__':
 	i = 0
 	for item in path:
 		i += 1
+		if i > 3:
+			break
 		
 		img  = cv2.imread(item, cv2.IMREAD_COLOR)
 
@@ -91,6 +93,9 @@ if __name__ == '__main__':
 
 		### UNTUK MELIHAT HASIL CROP
 		read(imgcrop)
+
+		### UNTUK MENYIMPAN GAMBAR HASIL CROP
+		cv2.imwrite(f'../Data/CROP/image_{i}.png', imgcrop)
 
 		## UNTUK MENGETAHUI JUMLAH PARASIT
 		print(count)
